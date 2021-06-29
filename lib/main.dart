@@ -102,18 +102,7 @@ class _TodoPageState extends State<TodoPage>
 
                 );
     } ,
-    // itemBuilder: (BuildContext ctxt, int index) {
-    // return ListTile(
-    // title: new Text("Rating #${fields[index].rating}"),
-    // subtitle: new Text(fields[index].title),
-    // onTap: (){
-    //
-    // Navigator.push(
-    // context,
-    // MaterialPageRoute(
-    // builder: (context) => B(bean: fields [index])), //// HERE B IS THE CLASS ON WHICH YOU NEED TO CARRY DATA FROM CLASS A
-    // );
-    // },
+
                ),
                           ),
               Center(
@@ -144,18 +133,7 @@ class _TodoPageState extends State<TodoPage>
 
                     );
                   } ,
-                  // itemBuilder: (BuildContext ctxt, int index) {
-                  // return ListTile(
-                  // title: new Text("Rating #${fields[index].rating}"),
-                  // subtitle: new Text(fields[index].title),
-                  // onTap: (){
-                  //
-                  // Navigator.push(
-                  // context,
-                  // MaterialPageRoute(
-                  // builder: (context) => B(bean: fields [index])), //// HERE B IS THE CLASS ON WHICH YOU NEED TO CARRY DATA FROM CLASS A
-                  // );
-                  // },
+
                 ),
               ),
               Center(
