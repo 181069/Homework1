@@ -14,14 +14,14 @@ class TodoPage extends StatefulWidget {
 
 class _TodoPageState extends State<TodoPage>
     with SingleTickerProviderStateMixin {
-  int index = 0;
-  List< ResItem> items = [
+
+  List< ResItem> res = [
     ResItem(pic: 'https://static01.nyt.com/images/2021/04/07/dining/05Nafasrex2/merlin_185308044_d86614f1-5f30-4124-9d83-85da702bbed9-articleLarge.jpg',Descreption:"maqlupa" ,IsChoosen: false),
     ResItem(pic: 'https://www.cheftariq.com/wp-content/uploads/2020/04/mansaf-4-1.jpg',Descreption:"mansaf" ,IsChoosen: false),
     ResItem(pic: 'https://www.kitchensanctuary.com/wp-content/uploads/2015/02/Chicken-Shawarma-square-FS-57.jpg',Descreption:"shawerma" ,IsChoosen: false),
 
   ];
-  List< ResItem> Favitems=[];
+
 
   TabController tabController;
   initTabController() {
@@ -33,16 +33,21 @@ class _TodoPageState extends State<TodoPage>
     // TODO: implement initState
     super.initState();
     initTabController();
+
   }
 
   @override
   Widget build(BuildContext context) {
-    for(int i=0;i<items.length;i++){
-      Favitems.clear();
-      if(items[i].IsChoosen){
-        Favitems.add(items[i]);
-      }
-    };
+    List< ResItem> Favitems=[
+
+    ];
+   for(int i=0;i<res.length;i++){
+     print(res[i].IsChoosen);
+     if(res[i].IsChoosen){
+       Favitems.add(res[i]);
+     }
+   }
+
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
@@ -71,82 +76,96 @@ class _TodoPageState extends State<TodoPage>
             controller: tabController,
             children: [
               Center(
-                child:SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: items.map((e) {
-                        return resmodel(e);
-                      }).toList()),
-                ),
-              ),
+               child:ListView.builder(
+                 itemCount: res.length,
+                 itemBuilder:(BuildContext ctxt, int index){
+                 return ListTile(
+                   leading:CircleAvatar(
+                     radius: 30.0,
+                     backgroundImage:
+                     NetworkImage("${res[index].pic}"),
+                     backgroundColor: Colors.transparent,
+                   ),
+                   title:Text(res[index].Descreption),
+                   trailing:res[index].IsChoosen
+                       ? TextButton(onPressed: () {
+                         setState(() {
+                           res[index].IsChoosen = !res[index].IsChoosen;
+                         });
+
+                   }, child: Icon(Icons.star, color: Colors.amber))
+                       : TextButton(onPressed: () {
+                     setState(() {
+                       res[index].IsChoosen = !res[index].IsChoosen;
+                     });
+                   }, child: Icon(Icons.star_border, color: Colors.amber)),
+
+                );
+    } ,
+    // itemBuilder: (BuildContext ctxt, int index) {
+    // return ListTile(
+    // title: new Text("Rating #${fields[index].rating}"),
+    // subtitle: new Text(fields[index].title),
+    // onTap: (){
+    //
+    // Navigator.push(
+    // context,
+    // MaterialPageRoute(
+    // builder: (context) => B(bean: fields [index])), //// HERE B IS THE CLASS ON WHICH YOU NEED TO CARRY DATA FROM CLASS A
+    // );
+    // },
+               ),
+                          ),
               Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: Favitems.map((e) {
-                        return resmodel(e);
-                      }).toList()),
+
+                child:ListView.builder(
+                  itemCount: Favitems.length,
+                  itemBuilder:(BuildContext ctxt, int index){
+                    return ListTile(
+                      leading:CircleAvatar(
+                        radius: 30.0,
+                        backgroundImage:
+                        NetworkImage("${Favitems[index].pic}"),
+                        backgroundColor: Colors.transparent,
+                      ),
+                      title:Text(Favitems[index].Descreption),
+                      trailing:Favitems[index].IsChoosen
+                          ? TextButton(onPressed: () {
+                        setState(() {
+                          Favitems[index].IsChoosen = !Favitems[index].IsChoosen;
+                        });
+
+                      }, child: Icon(Icons.delete_outline, color: Colors.amber))
+                          : TextButton(onPressed: () {
+                        setState(() {
+                          Favitems[index].IsChoosen = !Favitems[index].IsChoosen;
+                        });
+                      }, child: Icon(Icons.star, color: Colors.amber)),
+
+                    );
+                  } ,
+                  // itemBuilder: (BuildContext ctxt, int index) {
+                  // return ListTile(
+                  // title: new Text("Rating #${fields[index].rating}"),
+                  // subtitle: new Text(fields[index].title),
+                  // onTap: (){
+                  //
+                  // Navigator.push(
+                  // context,
+                  // MaterialPageRoute(
+                  // builder: (context) => B(bean: fields [index])), //// HERE B IS THE CLASS ON WHICH YOU NEED TO CARRY DATA FROM CLASS A
+                  // );
+                  // },
                 ),
               ),
               Center(
                 child: Text('Ple'),
+
               ),
             ]),
  );
   }
 }
-class resmodel extends StatefulWidget {
-
-  ResItem res;
-
-  resmodel(this.res);
-
-  @override
-  _resmodelState createState() => _resmodelState();
-}
-
-class _resmodelState extends State<resmodel> {
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(5),
-        color: Colors.transparent,
-        child: Column(
-          children: [
-            ListTile(
-              title:Text(widget.res.Descreption) ,
-              leading: CircleAvatar(
-                radius: 40.0,
-                backgroundImage:
-                NetworkImage("${widget.res.pic}"),
-                backgroundColor: Colors.transparent,
-              ),
-              trailing : ElevatedButton(style:ElevatedButton.styleFrom(
-                  primary: Colors.transparent,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  textStyle: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold)), onPressed: (){
 
 
-                setState(() {
-                  widget.res.IsChoosen=!widget.res.IsChoosen;
-                });
-              }, child:widget.res.IsChoosen ? Icon(Icons.star,color: Colors.amber ,): Icon(Icons.star_outline,color: Colors.amber) ),
-            ),
-          ],
-
-        ));
-  }
-}
-
-class ResItem{
-  String pic;
-  String Descreption;
-  bool IsChoosen;
-
-  ResItem({this.pic, this.Descreption, this.IsChoosen});
-}
 
