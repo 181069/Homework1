@@ -16,12 +16,13 @@ class _TodoPageState extends State<TodoPage>
     with SingleTickerProviderStateMixin {
   int index = 0;
   List< ResItem> items = [
-    ResItem(pic: 'https://lumiere-a.akamaihd.net/v1/images/frozen2-wallpaper-1_6e82a1c2.jpeg',Descreption:"frozen1" ,IsChoosen: false),
-    ResItem(pic: 'https://image.winudf.com/v2/image/Y29tLmNpbmRlcmVsbGEuZGlzbmV5cHJpbmNlc3Nfc2NyZWVuXzBfMTUyNTMxOTc2MF8wNzc/screen-0.jpg?fakeurl=1&type=.jpg',Descreption:"sandrella movie" ,IsChoosen: false),
-    ResItem(pic: 'https://wallpaperaccess.com/full/2022704.jpg',Descreption:"caroline movie" ,IsChoosen: false),
+    ResItem(pic: 'https://static01.nyt.com/images/2021/04/07/dining/05Nafasrex2/merlin_185308044_d86614f1-5f30-4124-9d83-85da702bbed9-articleLarge.jpg',Descreption:"maqlupa" ,IsChoosen: false),
+    ResItem(pic: 'https://www.cheftariq.com/wp-content/uploads/2020/04/mansaf-4-1.jpg',Descreption:"mansaf" ,IsChoosen: false),
+    ResItem(pic: 'https://www.kitchensanctuary.com/wp-content/uploads/2015/02/Chicken-Shawarma-square-FS-57.jpg',Descreption:"shawerma" ,IsChoosen: false),
 
   ];
   List< ResItem> Favitems=[];
+
   TabController tabController;
   initTabController() {
     tabController = TabController(length: 3, vsync: this);
@@ -36,10 +37,17 @@ class _TodoPageState extends State<TodoPage>
 
   @override
   Widget build(BuildContext context) {
+    for(int i=0;i<items.length;i++){
+      Favitems.clear();
+      if(items[i].IsChoosen){
+        Favitems.add(items[i]);
+      }
+    };
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          title: Text('TODO App'),
+          backgroundColor:Colors.red[700] ,
+          title: Text('Resturant App'),
           bottom: TabBar(
             controller: tabController,
             tabs: [
@@ -65,7 +73,7 @@ class _TodoPageState extends State<TodoPage>
               Center(
                 child:SingleChildScrollView(
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: items.map((e) {
                         return resmodel(e);
                       }).toList()),
@@ -102,20 +110,25 @@ class _resmodelState extends State<resmodel> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.all(15),
-        color: Colors.green[50],
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(5),
+        color: Colors.transparent,
         child: Column(
           children: [
             ListTile(
               title:Text(widget.res.Descreption) ,
               leading: CircleAvatar(
-                radius: 30.0,
+                radius: 40.0,
                 backgroundImage:
                 NetworkImage("${widget.res.pic}"),
                 backgroundColor: Colors.transparent,
               ),
-              trailing : ElevatedButton(onPressed: (){
+              trailing : ElevatedButton(style:ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  textStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold)), onPressed: (){
 
 
                 setState(() {
